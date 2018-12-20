@@ -35,5 +35,9 @@ namespace FMB.Services
         public int VirtualItemCount { get; set; }
 
         public int rn { get; set; }
+
+        public int PatientId { get; set; }
+
+
     }
 }

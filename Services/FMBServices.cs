@@ -63,7 +63,7 @@ namespace FMB.Services
                     IF OBJECT_ID('tempdb..#EBT') IS NOT NULL  DROP TABLE #EBT;
                     SET @NPI = (SELECT NPI from #NPI WHERE ID = @NextRow);
 
-                    SELECT IDENTITY(int, 1,1) AS Id,ID as PatientId,[ClaimNumber] ,[PatientFullName] , [ProviderFullName], [CarrierName], [DateFiled]  
+                    SELECT ID as PatientId,[ClaimNumber] ,[PatientFullName] , [ProviderFullName], [CarrierName], [DateFiled]  
                         ,isnull((cast([ChargeAmount1] as float)  * [DaysOrUnits1]) , 0 )
 	                    + isnull((cast([ChargeAmount2] as float) * [DaysOrUnits2]) , 0 )
 	                    + isnull((cast([ChargeAmount3] as float) * [DaysOrUnits3]) , 0 )
@@ -86,7 +86,7 @@ namespace FMB.Services
                     Alter table #Dashboard add  ClaimStatusDate varchar(255);
  
                     Update #Dashboard SET ClaimStatus = 'Initial Scrubbing';
-                    DELETE FROM #Dashboard WHERE id NOT IN (SELECT MAX(id) FROM #Dashboard GROUP BY ClaimNumber);
+                    DELETE FROM #Dashboard WHERE PATIENTID NOT IN (SELECT MAX(PATIENTID) FROM #Dashboard GROUP BY ClaimNumber);
                     select [claim_id],[accnt],[phys_id],[payer],[errors] 
                     INTO #HCFA
                     FROM [FMBStatusMaster].[dbo].[hcfa]
@@ -255,7 +255,6 @@ namespace FMB.Services
                     set @NextRow = @NextRow + 1;
                     end
                     
-              
 
                     SELECT * INTO #filter FROM #Dashboard 
 			        WHERE ClaimNumber LIKE '%'+@Criteria+'%'
@@ -272,13 +271,12 @@ namespace FMB.Services
 			        OR @Criteria  IS NULL
 
                     declare  @CNT int=(SELECT COUNT(*) FROM #filter)
-                  	SELECT TOP ( @PAGE_SIZE) claimnumber,PatientId,Patientfullname,providerfullname, Carriername,Datefiled, ClaimStatus,Billed,Insurance,Adjustments,PatientPay,Balance         , Note,Action,@CNT CNT,RN FROM (
+                  	SELECT TOP ( @PAGE_SIZE) claimnumber,Patientfullname,providerfullname, Carriername,Datefiled, ClaimStatus,Billed,Insurance,Adjustments,PatientPay,Balance         , Note,Action,@CNT CNT,RN,PatientId FROM (
                     select row_number() OVER (ORDER BY CLAIMNUMBER DESC) RN,claimnumber,PatientId,Patientfullname,providerfullname, Carriername,Datefiled, ClaimStatus,Billed,Insurance,Adjustments,PatientPay,Balance
                     , Note,NULL AS Action
                     from #filter
 					) AS SUB 
 					WHERE  RN > (@PAGE_SIZE * @PAGE_INDEX)
-            
                     ", conn))
                 {
                     comm.CommandTimeout = 0;
@@ -310,8 +308,8 @@ namespace FMB.Services
                             Note= (o[11].ToString()),
                             Action=0,
                             VirtualItemCount = int.Parse(o[13].ToString()),
-                            rn= int.Parse(o[14].ToString())
-
+                            rn= int.Parse(o[14].ToString()),
+                            PatientId= int.Parse(o[15].ToString())
                         });
                     }
                     conn.Close();

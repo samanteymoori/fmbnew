@@ -1,10 +1,10 @@
 {
   "Id": 0,
-  "Server": ".",
+  "Server": "94.183.116.72,1435",
   "Instance": "s16",
   "DataBase": "FMBStatusMaster",
-  "Integrated": true,
-  "User": "NewETI",
-  "Password": "Myxh79@2",
+  "Integrated": false,
+  "User": "sa",
+  "Password": "zxcasdqwe123",
   "UseBulkQuery": false
 }

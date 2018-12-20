@@ -196,7 +196,7 @@
         },
         methods: {
             edit(item) {
-                alert(JSON.stringify( item));
+                window.location = 'Patient/' + item.patientId;
             },
             loadData(pageIndex=1) {
                 let that = this;

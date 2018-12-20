@@ -37,3 +37,44 @@ C:\Users\saman\documents\visual studio 2017\Projects\FMB\FMB\obj\Debug\netcoreap
 C:\Users\saman\documents\visual studio 2017\Projects\FMB\FMB\obj\Debug\netcoreapp2.1\Razor\Views\Landing\Login.g.cshtml.cs
 C:\Users\saman\documents\visual studio 2017\Projects\FMB\FMB\obj\Debug\netcoreapp2.1\Razor\Views\Landing\Dashboard.g.cshtml.cs
 C:\Users\saman\documents\visual studio 2017\Projects\FMB\FMB\obj\Debug\netcoreapp2.1\Razor\Views\Landing\DatabaseChoose.g.cshtml.cs
+C:\Users\Sighte.com\Source\Repos\fmbnew\bin\Debug\netcoreapp2.1\FMB.deps.json
+C:\Users\Sighte.com\Source\Repos\fmbnew\bin\Debug\netcoreapp2.1\FMB.runtimeconfig.json
+C:\Users\Sighte.com\Source\Repos\fmbnew\bin\Debug\netcoreapp2.1\FMB.runtimeconfig.dev.json
+C:\Users\Sighte.com\Source\Repos\fmbnew\bin\Debug\netcoreapp2.1\FMB.dll
+C:\Users\Sighte.com\Source\Repos\fmbnew\bin\Debug\netcoreapp2.1\FMB.pdb
+C:\Users\Sighte.com\Source\Repos\fmbnew\bin\Debug\netcoreapp2.1\FMB.Views.dll
+C:\Users\Sighte.com\Source\Repos\fmbnew\bin\Debug\netcoreapp2.1\FMB.Views.pdb
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\FMB.csprojAssemblyReference.cache
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\FMB.csproj.CoreCompileInputs.cache
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\FMB.RazorAssemblyInfo.cache
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\FMB.RazorAssemblyInfo.cs
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\FMB.AssemblyInfoInputs.cache
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\FMB.AssemblyInfo.cs
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\FMB.TagHelpers.input.cache
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\FMB.TagHelpers.output.cache
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\FMB.RazorCoreGenerate.cache
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\Razor\Views\Cms\Index.g.cshtml.cs
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\Razor\Views\Cms\Search.g.cshtml.cs
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\Razor\Views\Icd10\Index.g.cshtml.cs
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\Razor\Views\Icd10\Search.g.cshtml.cs
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\Razor\Views\Landing\401.g.cshtml.cs
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\Razor\Views\Landing\Dashboard.g.cshtml.cs
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\Razor\Views\Landing\DatabaseChoose.g.cshtml.cs
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\Razor\Views\Landing\Index.g.cshtml.cs
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\Razor\Views\Landing\Login.g.cshtml.cs
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\Razor\Views\NPI\About.g.cshtml.cs
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\Razor\Views\NPI\Contact.g.cshtml.cs
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\Razor\Views\NPI\Index.g.cshtml.cs
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\Razor\Views\NPI\Search.g.cshtml.cs
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Error.g.cshtml.cs
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Layout.g.cshtml.cs
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_ValidationScriptsPartial.g.cshtml.cs
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\Razor\Views\_ViewImports.g.cshtml.cs
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\Razor\Views\_ViewStart.g.cshtml.cs
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\FMB.RazorTargetAssemblyInfo.cache
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\FMB.RazorTargetAssemblyInfo.cs
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\FMB.Views.pdb
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\FMB.dll
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\FMB.pdb
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\FMB.csproj.CopyComplete
+C:\Users\Sighte.com\Source\Repos\fmbnew\obj\Debug\netcoreapp2.1\Razor\Views\Landing\Patient.g.cshtml.cs

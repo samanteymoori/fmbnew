@@ -53,6 +53,12 @@ namespace FMBPublic.Controllers
             //throw new InvalidOperationException();
             return View();
         }
+        [Authorize(AuthenticationSchemes = SchemesNamesConst.UserAuthenticationDefaultScheme)]
+        [HttpGet]
+        public IActionResult Patient(int Id)
+        {
+            return View();
+        }
 
         [Authorize(AuthenticationSchemes = SchemesNamesConst.UserAuthenticationDefaultScheme)]
         [HttpPost]
