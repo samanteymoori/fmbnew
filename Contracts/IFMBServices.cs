@@ -8,5 +8,8 @@ namespace FMB.Services
     {
         ConnectionSetting Cs { get; set; }
         List<DashboardResult> GetDashboardResults(DataSetting setting);
+
+
+        PatientDetail GetPatientDetails(int PatientId);
     }
 }

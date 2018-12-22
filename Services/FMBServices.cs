@@ -257,7 +257,7 @@ namespace FMB.Services
                     
 
                     SELECT * INTO #filter FROM #Dashboard 
-			        WHERE ClaimNumber LIKE '%'+@Criteria+'%'
+			        WHERE (ClaimNumber LIKE '%'+@Criteria+'%'
 			        OR PatientFullName LIKE  '%'+@Criteria+'%'
 			        OR ProviderFullName LIKE  '%'+@Criteria+'%'
 			        OR CarrierName LIKE  '%'+@Criteria+'%' 
@@ -268,7 +268,7 @@ namespace FMB.Services
 			        OR Adjustments LIKE  '%'+@Criteria+'%'
 			        OR PatientPay LIKE  '%'+@Criteria+'%' 
 			        OR Balance LIKE  '%'+@Criteria+'%'
-			        OR @Criteria  IS NULL
+			        OR @Criteria  IS NULL) AND (PatientId= @PatientId OR @PatientId IS NULL)
 
                     declare  @CNT int=(SELECT COUNT(*) FROM #filter)
                   	SELECT TOP ( @PAGE_SIZE) claimnumber,Patientfullname,providerfullname, Carriername,Datefiled, ClaimStatus,Billed,Insurance,Adjustments,PatientPay,Balance         , Note,Action,@CNT CNT,RN,PatientId FROM (
@@ -283,7 +283,10 @@ namespace FMB.Services
                     comm.Parameters.AddWithValue("@PAGE_SIZE", setting.PageSize);
                     comm.Parameters.AddWithValue("@PAGE_INDEX", setting.PageIndex);
                     comm.Parameters.AddWithValue("@Criteria", setting.SearchCriteria);
-
+                    if(setting.PatientId.HasValue)
+                        comm.Parameters.AddWithValue("@PatientId", setting.PatientId.Value);
+                    else
+                        comm.Parameters.AddWithValue("@PatientId", DBNull.Value);
                     var reader = comm.ExecuteReader();
                     
                     object[] o = new object[reader.FieldCount];
@@ -316,6 +319,37 @@ namespace FMB.Services
                 }
             }
             return res;
+        }
+
+        public PatientDetail GetPatientDetails(int PatientId)
+        {
+            var pd = new PatientDetail();
+            using (SqlConnection conn = new SqlConnection(Cs.GetConnection()))
+            {
+                conn.Open();
+                using (SqlCommand comm = new SqlCommand(
+                    @"SELECT * FROM [dbo].[fmb_PatientDetail] 
+                    WHERE PatientId=@PatientId", conn))
+                {
+                    
+                    comm.CommandTimeout = 0;
+                    comm.Parameters.AddWithValue("@PatientId", PatientId);
+
+                    var reader = comm.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            typeof(PatientDetail).GetProperties()[i].SetValue(pd, reader[i]);
+                        }
+                        
+                    }
+                    conn.Close();
+                }
+
+            }
+            return pd;
         }
     }
 }

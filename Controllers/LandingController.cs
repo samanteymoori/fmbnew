@@ -57,9 +57,23 @@ namespace FMBPublic.Controllers
         [HttpGet]
         public IActionResult Patient(int Id)
         {
+
             return View();
         }
-
+        [Authorize(AuthenticationSchemes = SchemesNamesConst.UserAuthenticationDefaultScheme)]
+        [HttpGet]
+        public IActionResult PatientDetail(int Id)
+        {
+            byte[] database = null;
+            if (HttpContext.Session.TryGetValue("database", out database))
+            {
+                _fmbService.Cs = Connection.GetCs();
+                _fmbService.Cs.DataBase = UTF8Encoding.UTF8.GetString(database);
+                var result = _fmbService.GetPatientDetails(Id);
+                return Json(result);
+            }
+            return View();
+        }
         [Authorize(AuthenticationSchemes = SchemesNamesConst.UserAuthenticationDefaultScheme)]
         [HttpPost]
         public IActionResult Dashboard([FromBody]DataSetting setting)

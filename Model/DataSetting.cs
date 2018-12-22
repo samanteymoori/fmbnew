@@ -13,6 +13,7 @@ namespace FMB.Model
 
         public int PageSize { get; set; }
 
+        public int? PatientId { get; set; }
 
     }
 }

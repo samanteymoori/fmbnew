@@ -210,7 +210,7 @@
                     url: "Dashboard",
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify({ "SearchCriteria": search, "PageIndex": pageIndex-1, "PageSize": ps }),
+                    data: JSON.stringify({ "SearchCriteria": search, "PageIndex": pageIndex - 1, "PageSize": ps }),
                     success: function (data) {
                         $(data).each(function (index, d) {
                             if (index == 0) {
