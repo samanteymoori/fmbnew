@@ -1,0 +1,846 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <h4 class="page-title float-left">Dashboard</h4>
+
+                <ol class="breadcrumb float-right">
+                    <li class="breadcrumb-item"><a href="#">FMB</a></li>
+                    <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+                <div class="clearfix"></div>
+            </div>
+
+            <!-- Filter -->
+            <!-- <div class="filter">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group m-b-20">
+                            <label>Date Range Pick</label>
+                            <div>
+                                <input class="form-control " type="text" name="daterange" id="reportrange">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <!-- Upper Boxes -->
+            <div class="row">
+                <div class="col">
+                    <div class="card-box widget-box-two widget-two-custom">
+                        <!-- <i class="mdi mdi-currency-usd widget-two-icon"></i> -->
+                        <div class="wigdet-two-content">
+                            <div class="form-group mb-0">
+                                <p class="m-0 text-uppercase font-bold font-secondary text-overflow">Date Range</p>
+                                <div class="mt" style="margin-top: 1.25rem;">
+                                    <input class="form-control " type="text" name="daterange" id="reportrange">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+                <div class="col">
+                    <div class="card-box widget-box-two widget-two-custom">
+                        <!-- <i class="mdi mdi-currency-usd widget-two-icon"></i> -->
+                        <div class="wigdet-two-content">
+                            <p class="m-0 text-uppercase font-bold font-secondary text-overflow" title="Statistics">Charges</p>
+                            <h2 class="font-600"> <span data-plugin="counterup">65841</span></h2>
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+                <div class="col">
+                    <div class="card-box widget-box-two widget-two-custom">
+                        <!-- <i class="mdi mdi-account-multiple widget-two-icon"></i> -->
+                        <div class="wigdet-two-content">
+                            <p class="m-0 text-uppercase font-bold font-secondary text-overflow" title="Statistics">Insurance Payments</p>
+                            <h2 class="font-600"> <span data-plugin="counterup">236521</span></h2>
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+                <div class="col">
+                    <div class="card-box widget-box-two widget-two-custom">
+                        <!-- <i class="mdi mdi-crown widget-two-icon"></i> -->
+                        <div class="wigdet-two-content">
+                            <p class="m-0 text-uppercase font-bold font-secondary text-overflow" title="Statistics">Adjustments</p>
+                            <h2 class="font-600"> <span data-plugin="counterup">563698</span></h2>
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+                <div class="col">
+                    <div class="card-box widget-box-two widget-two-custom">
+                        <!-- <i class="mdi mdi-auto-fix widget-two-icon"></i> -->
+                        <div class="wigdet-two-content">
+                            <p class="m-0 text-uppercase font-bold font-secondary text-overflow" title="Statistics">Patient Payments</p>
+                            <h2 class="font-600"><span data-plugin="counterup">2.07</span>%</h2>
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+                <div class="col">
+                    <div class="card-box widget-box-two widget-two-custom">
+                        <!-- <i class="mdi mdi-auto-fix widget-two-icon"></i> -->
+                        <div class="wigdet-two-content">
+                            <p class="m-0 text-uppercase font-bold font-secondary text-overflow" title="Statistics">Balance</p>
+                            <h2 class="font-600"><span data-plugin="counterup">2.07</span>%</h2>
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+                <div class="col">
+                    <div class="card-box widget-box-two widget-two-custom">
+
+                        <!-- <i class="mdi mdi-currency-usd widget-two-icon"></i> -->
+                        <div class="wigdet-two-content">
+                            <p class="m-0 text-uppercase font-bold font-secondary text-overflow" title="Statistics">Deductible</p>
+                            <h2 class="font-600"><span data-plugin="counterup">2.07</span>%</h2>
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+                <div class="col">
+                    <div class="card-box widget-box-two widget-two-custom">
+                        <!-- <i class="mdi mdi-account-multiple widget-two-icon"></i>  -->
+                        <div class="wigdet-two-content">
+                            <p class="m-0 text-uppercase font-bold font-secondary text-overflow" title="Statistics">co-pay</p>
+                            <h2 class="font-600"><span data-plugin="counterup">2.07</span>%</h2>
+                        </div>
+                    </div>
+                </div><!-- end col -->
+            </div>
+
+            <!-- Tabbing -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card-box">
+                        <ul class="nav nav-tabs tabs-bordered  text-uppercase">
+                            <li class="nav-item">
+                                <a href="#ver" data-toggle="tab" aria-expanded="false" class="nav-link active show">
+                                    coverage verification
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#primary-b1" data-toggle="tab" aria-expanded="true" class="nav-link">
+                                    Primary
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#secondary-b1" data-toggle="tab" aria-expanded="false" class="nav-link">
+                                    Secondary
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#tertiary-b1" data-toggle="tab" aria-expanded="false" class="nav-link">
+                                    Tertiary
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#home-b1" data-toggle="tab" aria-expanded="false" class="nav-link">
+                                    Patient
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#profile-b1" data-toggle="tab" aria-expanded="false" class="nav-link">
+                                    Address
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#messages-b1" data-toggle="tab" aria-expanded="false" class="nav-link">
+                                    Guarantor
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#settings-b1" data-toggle="tab" aria-expanded="false" class="nav-link">
+                                    Insured
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#emp-b1" data-toggle="tab" aria-expanded="false" class="nav-link">
+                                    Employer
+                                </a>
+                            </li>
+
+                        </ul>
+                        <div class="tab-content">
+
+                            <!-- coverage verification -->
+                            <div class="tab-pane show active" id="ver">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4 class="header-title m-t-0 text-danger">Patient</h4>
+                                        <div class="row mt-3 mb-3">
+                                            <div class="col-md-12">
+                                                <input type="text" name="country" id="autocomplete-ajax" class="form-control" placeholder="Search Patient">
+                                                <input type="text" name="country" id="autocomplete-ajax-x" disabled="disabled" class="form-control"
+                                                       style="color: #CCC; position: absolute; background: transparent; z-index: 1;display: none;" />
+                                            </div>
+                                        </div>
+
+
+                                        <h4 class="header-title m-t-0 text-danger">Add Patient </h4>
+                                        <form class="form-horizontal" role="form">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group row">
+                                                        <label for="" class="col-12 col-form-label1">Last Name</label>
+                                                        <div class="col-12">
+                                                            <input type="text" class="form-control" id="" placeholder="Last Name">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group row">
+                                                        <label for="" class="col-12 col-form-label1">First Name</label>
+                                                        <div class="col-12">
+                                                            <input type="text" class="form-control" id="" placeholder="First Name">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group row">
+                                                        <label for="" class="col-12 col-form-label1">Last Name</label>
+                                                        <div class="col-12">
+                                                            <input type="text" class="form-control" id="" placeholder="Last Name">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group row">
+                                                        <label for="" class="col-12 col-form-label1">Suffix</label>
+                                                        <div class="col-12">
+                                                            <input type="text" placeholder="Suffix" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group row">
+                                                        <label for="" class="col-12 col-form-label1">DOB</label>
+                                                        <div class="col-12">
+                                                            <input type="text" placeholder="dd/mm/yyyy" data-mask="99/99/9999" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group row">
+                                                        <label for="" class="col-12 col-form-label1">Gender</label>
+                                                        <div class="col-12">
+                                                            <select class="custom-select">
+                                                                <option selected="">Male </option>
+                                                                <option selected="">Female </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group row">
+                                                        <label for="" class="col-12 col-form-label1">SSN</label>
+                                                        <div class="col-12">
+                                                            <input type="text" placeholder="999-99-9999" data-mask="999-99-9999" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group row">
+                                                        <label for="" class="col-12 col-form-label1">Medicare ID</label>
+                                                        <div class="col-12">
+                                                            <input type="text" placeholder="Medicare ID" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+
+
+                                        <h4 class="header-title m-t-0 text-danger">Provider </h4>
+                                        <div class="row mt-3 mb-3">
+                                            <div class="col-md-4">
+                                                <select class="custom-select">
+                                                    <option selected="">Select Patient </option>
+                                                    <option value="1">Last name</option>
+                                                    <option value="2">First name</option>
+                                                    <option value="3">Mi</option>
+                                                    <option value="4">Date of birth</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <select class="custom-select">
+                                                    <option selected="">Select Procedure </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <select class="custom-select">
+                                                    <option selected="">Select Service</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <h4 class="header-title m-t-0 text-danger">Payer</h4>
+                                        <div class="row mt-3 mb-3">
+                                            <div class="col-md-4">
+                                                <select class="custom-select">
+                                                    <option selected="">Select Payer </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" placeholder="Client id">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" placeholder="Group id">
+                                            </div>
+                                        </div>
+
+                                        <div class=" btn-block text-center">
+                                            <button type="button" class="btn btn-danger waves-effect w-md waves-light">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Patient -->
+                            <div class="tab-pane" id="home-b1">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="">
+
+                                            <p class="d-inline-block mr-4 font-16">Account no:  <a href="#" id="inline-username" data-type="text" data-pk="1" data-title="Enter username" class="editable editable-click">235-15</a></p>
+
+                                            <p class="d-inline-block mr-4 font-16">Provider:  <a href="#" id="inline-username" data-type="text" data-pk="1" data-title="Enter username" class="editable editable-click">Test</a></p>
+
+                                            <form class="form-horizontal" role="form">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Last Name</label>
+                                                            <div class="col-12">
+                                                                <input type="text" class="form-control" id="" placeholder="Last Name">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">MI</label>
+                                                            <div class="col-12">
+                                                                <input type="text" class="form-control" id="" placeholder="MI">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">First Name</label>
+                                                            <div class="col-12">
+                                                                <input type="text" class="form-control" id="" placeholder="First Name">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Generation</label>
+                                                            <div class="col-12">
+                                                                <input type="text" class="form-control" id="" placeholder="JR,SR,III">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="inputEmail3" class="col-12 col-form-label1">Email</label>
+                                                            <div class="col-12">
+                                                                <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">SSN</label>
+                                                            <div class="col-12">
+                                                                <input type="text" placeholder="999-99-9999" data-mask="999-99-9999" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">DOB</label>
+                                                            <div class="col-12">
+                                                                <input type="text" placeholder="dd/mm/yyyy" data-mask="99/99/9999" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Phone No</label>
+                                                            <div class="col-12">
+                                                                <input type="text" placeholder="(999) 999-9999" data-mask="(999) 999-9999" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Cell No</label>
+                                                            <div class="col-12">
+                                                                <input type="text" placeholder="(999) 999-9999" data-mask="(999) 999-9999" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <!-- <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1"></label>
+                                                            <div class="col-12">
+                                                                <ul class="social-links list-inline">
+                                                                    <li class="list-inline-item">
+                                                                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Facebook"><i class="fa fa-facebook"></i></a>
+                                                                    </li>
+                                                                    <li class="list-inline-item">
+                                                                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Twitter"><i class="fa fa-twitter"></i></a>
+                                                                    </li>
+                                                                    <li class="list-inline-item">
+                                                                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Skype"><i class="fa fa-skype"></i></a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div> -->
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Marital Status</label>
+                                                            <div class="col-12">
+                                                                <select class="custom-select">
+                                                                    <option selected="">Married </option>
+                                                                    <option value="2">Unmarried</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Student Status</label>
+                                                            <div class="col-12">
+                                                                <select class="custom-select">
+                                                                    <option selected="">Unknown </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Employment Status</label>
+                                                            <div class="col-12">
+                                                                <select class="custom-select">
+                                                                    <option selected="">Unknown </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Gender</label>
+                                                            <div class="col-12">
+                                                                <select class="custom-select">
+                                                                    <option selected="">Male </option>
+                                                                    <option selected="">Female </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="btn-block text-center">
+                                                    <button type="button" class="btn  btn-danger waves-effect w-md waves-light">Submit</button>
+                                                </div>
+                                            </form>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Address -->
+                            <div class="tab-pane" id="profile-b1">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form class="form-horizontal" role="form">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <h4 class="header-title m-t-0 m-b-30 text-danger">Address</h4>
+                                                    <div class="form-group row">
+                                                        <label for="" class="col-12 col-form-label1">Street1</label>
+                                                        <div class="col-12">
+                                                            <input type="text" class="form-control" id="" placeholder="Street1">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label for="" class="col-12 col-form-label1">Street2</label>
+                                                        <div class="col-12">
+                                                            <input type="text" class="form-control" id="" placeholder="Street2">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label for="" class="col-12 col-form-label1">City</label>
+                                                        <div class="col-12">
+                                                            <input type="text" placeholder="City" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label for="" class="col-12 col-form-label1">State</label>
+                                                        <div class="col-12">
+                                                            <select class="custom-select">
+                                                                <option>TX</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label for="" class="col-12 col-form-label1">Zip</label>
+                                                        <div class="col-12">
+                                                            <input type="text" placeholder="Zip" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <h4 class="header-title m-t-0 m-b-30 text-danger">Billing Address</h4>
+                                                    <div class="form-group row">
+                                                        <label for="" class="col-12 col-form-label1">Billing addr street1</label>
+                                                        <div class="col-12">
+                                                            <input type="text" placeholder="Billing address street1" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label for="" class="col-12 col-form-label1">Billing addr street2</label>
+                                                        <div class="col-12">
+                                                            <input type="text" placeholder="Billing address street2" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label for="" class="col-12 col-form-label1">Billing address city</label>
+                                                        <div class="col-12">
+                                                            <input type="text" placeholder="Billing address city" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label for="" class="col-12 col-form-label1">Billing address state</label>
+                                                        <div class="col-12">
+                                                            <select class="custom-select">
+                                                                <option>TX</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label for="" class="col-12 col-form-label1">Billing address zip</label>
+                                                        <div class="col-12">
+                                                            <input type="text" placeholder="Billing address zip" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="same">
+                                                <label class="mr-4">Is the Billing Address is same as Address?</label>
+                                                <div class="radio radio-danger d-inline-block mr-2">
+                                                    <input type="radio" name="radio1" id="radio1" value="option1">
+                                                    <label for="radio1"> Yes  </label>
+                                                </div>
+                                                <div class="radio radio-danger d-inline-block mr-2">
+                                                    <input type="radio" name="radio2" id="radio2" value="option2">
+                                                    <label for="radio2"> No  </label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Guarantor -->
+                            <div class="tab-pane" id="messages-b1">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="">
+                                            <form class="form-horizontal" role="form">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Relation</label>
+                                                            <div class="col-12">
+                                                                <select class="custom-select">
+                                                                    <option>Self</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Gurantor ID</label>
+                                                            <div class="col-12">
+                                                                <input type="text" class="form-control" id="" placeholder="" value="155" disabled="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Last Name</label>
+                                                            <div class="col-12">
+                                                                <input type="text" class="form-control" id="" placeholder="Last Name">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">MI</label>
+                                                            <div class="col-12">
+                                                                <input type="text" class="form-control" id="" placeholder="MI">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">First Name</label>
+                                                            <div class="col-12">
+                                                                <input type="text" class="form-control" id="" placeholder="First Name">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Generation</label>
+                                                            <div class="col-12">
+                                                                <input type="text" class="form-control" id="" placeholder="JR,SR,III">
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Gender</label>
+                                                            <div class="col-12">
+                                                                <select class="custom-select">
+                                                                    <option selected="">Male </option>
+                                                                    <option selected="">Female </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Phone No</label>
+                                                            <div class="col-12">
+                                                                <input type="text" placeholder="(999) 999-9999" data-mask="(999) 999-9999" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Cell No</label>
+                                                            <div class="col-12">
+                                                                <input type="text" placeholder="(999) 999-9999" data-mask="(999) 999-9999" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="inputEmail3" class="col-12 col-form-label1">Email</label>
+                                                            <div class="col-12">
+                                                                <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Street1</label>
+                                                            <div class="col-12">
+                                                                <input type="text" class="form-control" id="" placeholder="Street1">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Street2</label>
+                                                            <div class="col-12">
+                                                                <input type="text" class="form-control" id="" placeholder="Street2">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">City</label>
+                                                            <div class="col-12">
+                                                                <input type="text" placeholder="City" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">State</label>
+                                                            <div class="col-12">
+                                                                <select class="custom-select">
+                                                                    <option>TX</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Zip</label>
+                                                            <div class="col-12">
+                                                                <input type="text" placeholder="Zip" class="form-control">
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Insured -->
+                            <div class="tab-pane" id="settings-b1">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="">
+                                            <form class="form-horizontal" role="form">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Relation</label>
+                                                            <div class="col-12">
+                                                                <select class="custom-select">
+                                                                    <option>Self</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Last Name</label>
+                                                            <div class="col-12">
+                                                                <input type="text" class="form-control" id="" placeholder="Last Name">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">MI</label>
+                                                            <div class="col-12">
+                                                                <input type="text" class="form-control" id="" placeholder="MI">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">First Name</label>
+                                                            <div class="col-12">
+                                                                <input type="text" class="form-control" id="" placeholder="First Name">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Generation</label>
+                                                            <div class="col-12">
+                                                                <input type="text" class="form-control" id="" placeholder="JR,SR,III">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Insured Email</label>
+                                                            <div class="col-12">
+                                                                <input type="text" class="form-control" id="" placeholder="Email">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">SSN</label>
+                                                            <div class="col-12">
+                                                                <input type="text" placeholder="999-99-9999" data-mask="999-99-9999" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">DOB</label>
+                                                            <div class="col-12">
+                                                                <input type="text" placeholder="dd/mm/yyyy" data-mask="99/99/9999" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Gender</label>
+                                                            <div class="col-12">
+                                                                <select class="custom-select">
+                                                                    <option selected="">Male </option>
+                                                                    <option selected="">Female </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Phone No</label>
+                                                            <div class="col-12">
+                                                                <input type="text" placeholder="(999) 999-9999" data-mask="(999) 999-9999" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Cell No</label>
+                                                            <div class="col-12">
+                                                                <input type="text" placeholder="(999) 999-9999" data-mask="(999) 999-9999" class="form-control">
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Street1</label>
+                                                            <div class="col-12">
+                                                                <input type="text" class="form-control" id="" placeholder="Street1">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Street2</label>
+                                                            <div class="col-12">
+                                                                <input type="text" class="form-control" id="" placeholder="Street2">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">City</label>
+                                                            <div class="col-12">
+                                                                <input type="text" placeholder="City" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">State</label>
+                                                            <div class="col-12">
+                                                                <select class="custom-select">
+                                                                    <option>TX</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-12 col-form-label1">Zip</label>
+                                                            <div class="col-12">
+                                                                <input type="text" placeholder="Zip" class="form-control">
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Employer -->
+                            <div class="tab-pane" id="emp-b1">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="col-form-label1">Employer ID</label>
+                                        <input type="text" class="form-control" id="" placeholder="Employer ID">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="col-form-label1">Employer Name</label>
+                                        <input type="text" class="form-control" id="" placeholder="Employer Name">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="col-form-label1">&nbsp;</label>
+                                        <div class="action font-22">
+                                            <a href="" class="mx-2 text-danger"><i class="fa fa-search"></i></a>
+                                            <a href="" class="mx-2 text-danger"><i class="fa fa-plus"></i></a>
+                                            <a href="" class="mx-2 text-danger"><i class="fa fa-close"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Primary -->
+                            <div class="tab-pane" id="primary-b1">
+                            </div>
+
+                            <!-- Secondary -->
+                            <div class="tab-pane" id="secondary-b1">
+                            </div>
+
+                            <!-- Tertiary -->
+                            <div class="tab-pane" id="tertiary-b1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end col -->
+            </div>
+
+            <!-- File Upload -->
+            @*<div class="row">
+                <div class="col-md-12">
+                    <div class="card-box">
+                        <h4 class="header-title m-t-0 mb-3">Upload Photos</h4>
+                        <div class="p-b-0">
+
+                            <input type="file" name="files[]" id="filer_input1" multiple="multiple">
+
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+
+        </div>
+    </div>
+    <!-- end row -->
+
+
+</div> <!-- container -->

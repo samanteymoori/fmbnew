@@ -119,3 +119,5 @@ F:\PROJECTS\FMB_New\obj\Debug\netcoreapp2.1\FMB.Views.pdb
 F:\PROJECTS\FMB_New\obj\Debug\netcoreapp2.1\FMB.dll
 F:\PROJECTS\FMB_New\obj\Debug\netcoreapp2.1\FMB.pdb
 F:\PROJECTS\FMB_New\obj\Debug\netcoreapp2.1\FMB.csproj.CopyComplete
+F:\PROJECTS\FMB_New\obj\Debug\netcoreapp2.1\Razor\Views\Landing\Test.g.cshtml.cs
+F:\PROJECTS\FMB_New\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Layout2.g.cshtml.cs

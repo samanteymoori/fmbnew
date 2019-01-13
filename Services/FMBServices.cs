@@ -268,7 +268,9 @@ namespace FMB.Services
 			        OR Adjustments LIKE  '%'+@Criteria+'%'
 			        OR PatientPay LIKE  '%'+@Criteria+'%' 
 			        OR Balance LIKE  '%'+@Criteria+'%'
-			        OR @Criteria  IS NULL) AND (PatientId= @PatientId OR @PatientId IS NULL)
+			        OR @Criteria  IS NULL) AND (claimnumber in (
+					select claimnumber from tblClaim where accountnumber=(select accountNumber from tblClaim where claimnumber=@PatientId)
+					)  OR @PatientId IS NULL)
 
                     declare  @CNT int=(SELECT COUNT(*) FROM #filter)
                   	SELECT TOP ( @PAGE_SIZE) claimnumber,Patientfullname,providerfullname, Carriername,Datefiled, ClaimStatus,Billed,Insurance,Adjustments,PatientPay,Balance         , Note,Action,@CNT CNT,RN,PatientId FROM (
@@ -321,35 +323,488 @@ namespace FMB.Services
             return res;
         }
 
-        public PatientDetail GetPatientDetails(int PatientId)
+        public int? GetAccountNumberByClaimNumber(int ClaimNumber)
         {
-            var pd = new PatientDetail();
+            int? result = null;
             using (SqlConnection conn = new SqlConnection(Cs.GetConnection()))
             {
                 conn.Open();
                 using (SqlCommand comm = new SqlCommand(
-                    @"SELECT * FROM [dbo].[fmb_PatientDetail] 
-                    WHERE PatientId=@PatientId", conn))
+                    @"SELECT AccountNumber FROM tblClaim 
+                    WHERE ClaimNumber=@ClaimNumber", conn))
                 {
                     
                     comm.CommandTimeout = 0;
-                    comm.Parameters.AddWithValue("@PatientId", PatientId);
+                    comm.Parameters.AddWithValue("@ClaimNumber", ClaimNumber);
+                    var res = comm.ExecuteScalar();
+                    if (res != null)
+                        result = int.Parse(res.ToString());
+                    conn.Close();
+                }
 
-                    var reader = comm.ExecuteReader();
-                    while (reader.Read())
+            }
+            return result;
+        }
+
+        public PatientViewModel GetPatientDetailByAccountNo(int AccountNumber)
+        {
+            PatientViewModel pvm = new PatientViewModel();
+            Patient result = new Patient();
+            using (SqlConnection conn = new SqlConnection(Cs.GetConnection()))
+            {
+                conn.Open();
+                using (SqlCommand comm = new SqlCommand(
+                    @"SELECT * FROM tblPatient 
+                    WHERE AccountNumber=@AccountNumber", conn))
+                {
+
+                    comm.CommandTimeout = 0;
+                    comm.Parameters.AddWithValue("@AccountNumber", AccountNumber);
+                    var res = comm.ExecuteReader();
+                    while (res.Read())
                     {
-                        
-                        for (int i = 0; i < reader.FieldCount; i++)
+                        var t = typeof(Patient);
+                        var pr = t.GetProperties();
+                        int i = 0;
+                        foreach (var item in pr)
                         {
-                            typeof(PatientDetail).GetProperties()[i].SetValue(pd, reader[i]);
+                            
+                            item.SetValue(result, res[i].ToString());
+                            i++;
                         }
-                        
+                    }
+                    
+                    conn.Close();
+                    pvm.Patient = result;
+                    pvm.PatientHist = GetPatientHistByPatientId(GetParam(pvm.Patient.PatientID));
+                    pvm.Provider = GetProviderById( pvm.Patient.ProviderCode);
+                    pvm.NPI = GetProviderNPI();
+                    pvm.ServiceTypes= GetServiceTypes();
+                    pvm.PlaceOfServices= GetPlaceOfServices();
+                    pvm.Providers = GetProviders();
+                    pvm.Payers= GetPayers();
+                    pvm.Phone1 = GetPhoneById(GetParam(pvm.PatientHist.Phone1ID));
+                    pvm.Phone2 = GetPhoneById(GetParam(pvm.PatientHist.Phone2ID));
+                    pvm.Address= GetAddressById(GetParam(pvm.PatientHist.AddressID));
+                    pvm.BillingAddress= GetAddressById(GetParam(pvm.PatientHist.BillingAddressID));
+                    pvm.PrimaryInsured = GetInsuredById((GetParam(pvm.PatientHist.PrimaryInsuredID)));
+                    pvm.InsuredPhone1= GetPhoneById((GetParam(pvm.PrimaryInsured.Phone1ID)));
+                    pvm.InsuredPhone2 = GetPhoneById((GetParam(pvm.PrimaryInsured.Phone2ID)));
+                    pvm.InsuredAddress= GetAddressById((GetParam(pvm.PrimaryInsured.AddressID)));
+
+                    pvm.SecondaryInsured= GetInsuredById((GetParam(pvm.PatientHist.SecondaryInsuredID)));
+                    pvm.OtherInsured= GetInsuredById((GetParam(pvm.PatientHist.OtherInsuredID)));
+
+                    pvm.Guarantor= GetGuarantorById((GetParam(pvm.PatientHist.GuarantorID)));
+                    if (pvm.Guarantor != null)
+                    {
+                        pvm.GuarantorAddress = GetAddressById((GetParam(pvm.Guarantor.AddressID)));
+                        pvm.GuarantorPhone1 = GetPhoneById((GetParam(pvm.Guarantor.Phone1ID)));
+                        pvm.GuarantorPhone2= GetPhoneById((GetParam(pvm.Guarantor.Phone2ID)));
+                        pvm.GuarantorAddress.State = "AZ";
+                    }
+                }
+
+            }
+            return pvm;
+        }
+
+        private int GetParam(string patientID)
+        {
+            if (string.IsNullOrEmpty(patientID))
+                return -1;
+            else
+                return int.Parse(patientID);
+        }
+
+        public PatientHist GetPatientHistByPatientId(int PatientId)
+        {
+            PatientHist result = new PatientHist();
+            if (PatientId == -1)
+                return result;
+            using (SqlConnection conn = new SqlConnection(Cs.GetConnection()))
+            {
+                conn.Open();
+                using (SqlCommand comm = new SqlCommand(
+                    @"SELECT * FROM tblPatientHist
+                    WHERE PatientId=@PatientId", conn))
+                {
+
+                    comm.CommandTimeout = 0;
+                    comm.Parameters.AddWithValue("@PatientId", PatientId);
+                    var res = comm.ExecuteReader();
+                    while (res.Read())
+                    {
+                        var t = typeof(PatientHist);
+                        var pr = t.GetProperties();
+                        int i = 0;
+                        foreach (var item in pr)
+                        {
+
+                            item.SetValue(result, res[i].ToString());
+                            i++;
+                        }
                     }
                     conn.Close();
                 }
 
             }
-            return pd;
+            return result;
+        }
+
+        public Insured GetInsuredById(int Id)
+        {
+            Insured result = new Insured();
+            if (Id == -1)
+                return result;
+            using (SqlConnection conn = new SqlConnection(Cs.GetConnection()))
+            {
+                conn.Open();
+                using (SqlCommand comm = new SqlCommand(
+                    @"SELECT * FROM tblInsured
+                    WHERE InsuredId=@InsuredId", conn))
+                {
+
+                    comm.CommandTimeout = 0;
+                    comm.Parameters.AddWithValue("@InsuredId", Id);
+                    var res = comm.ExecuteReader();
+                    while (res.Read())
+                    {
+                        var t = typeof(Insured);
+                        var pr = t.GetProperties();
+                        int i = 0;
+                        foreach (var item in pr)
+                        {
+
+                            item.SetValue(result, res[i].ToString());
+                            i++;
+                        }
+                    }
+                    conn.Close();
+                }
+
+            }
+            return result;
+        }
+        public Guarantor GetGuarantorById(int Id)
+        {
+            Guarantor result = new Guarantor();
+            if (Id == -1)
+                return result;
+            using (SqlConnection conn = new SqlConnection(Cs.GetConnection()))
+            {
+                conn.Open();
+                using (SqlCommand comm = new SqlCommand(
+                    @"SELECT * FROM tblGuarantor
+                    WHERE GuarantorId=@GuarantorId", conn))
+                {
+
+                    comm.CommandTimeout = 0;
+                    comm.Parameters.AddWithValue("@GuarantorId", Id);
+                    var res = comm.ExecuteReader();
+                    while (res.Read())
+                    {
+                        var t = typeof(Guarantor);
+                        var pr = t.GetProperties();
+                        int i = 0;
+                        foreach (var item in pr)
+                        {
+
+                            item.SetValue(result, res[i].ToString());
+                            i++;
+                        }
+                    }
+                    conn.Close();
+                }
+
+            }
+            return result;
+        }
+
+        public Address GetAddressById(int Id)
+        {
+            Address result = new Address();
+            if (Id == -1)
+                return result;
+            using (SqlConnection conn = new SqlConnection(Cs.GetConnection()))
+            {
+                conn.Open();
+                using (SqlCommand comm = new SqlCommand(
+                    @"SELECT * FROM tblAddress
+                    WHERE AddressId=@AddressId", conn))
+                {
+
+                    comm.CommandTimeout = 0;
+                    comm.Parameters.AddWithValue("@AddressId", Id);
+                    var res = comm.ExecuteReader();
+                    while (res.Read())
+                    {
+                        var t = typeof(Address);
+                        var pr = t.GetProperties();
+                        int i = 0;
+                        foreach (var item in pr)
+                        {
+
+                            item.SetValue(result, res[i].ToString());
+                            i++;
+                        }
+                    }
+                    conn.Close();
+                }
+
+            }
+            return result;
+        }
+
+        public Phone GetPhoneById(int Id)
+        {
+            Phone result = new Phone();
+            if (Id == -1)
+                return result;
+            using (SqlConnection conn = new SqlConnection(Cs.GetConnection()))
+            {
+                conn.Open();
+                using (SqlCommand comm = new SqlCommand(
+                    @"SELECT * FROM tblPhone
+                    WHERE PhoneId=@PhoneId", conn))
+                {
+
+                    comm.CommandTimeout = 0;
+                    comm.Parameters.AddWithValue("@PhoneId", Id);
+                    var res = comm.ExecuteReader();
+                    while (res.Read())
+                    {
+                        var t = typeof(Phone);
+                        var pr = t.GetProperties();
+                        int i = 0;
+                        foreach (var item in pr)
+                        {
+
+                            item.SetValue(result, res[i].ToString());
+                            i++;
+                        }
+                    }
+                    conn.Close();
+                }
+
+            }
+            return result;
+        }
+
+        public Provider GetProviderById(string code)
+        {
+            Provider result = new Provider();
+           
+            using (SqlConnection conn = new SqlConnection(Cs.GetConnection()))
+            {
+                conn.Open();
+                using (SqlCommand comm = new SqlCommand(
+                    @"SELECT * FROM tblProvider
+                    WHERE ProviderCode=@ProviderCode", conn))
+                {
+
+                    comm.CommandTimeout = 0;
+                    comm.Parameters.AddWithValue("@ProviderCode", code);
+                    var res = comm.ExecuteReader();
+                    while (res.Read())
+                    {
+                        var t = typeof(Provider);
+                        var pr = t.GetProperties();
+                        int i = 0;
+                        foreach (var item in pr)
+                        {
+
+                            item.SetValue(result, res[i].ToString());
+                            i++;
+                        }
+                    }
+                    conn.Close();
+                }
+
+            }
+            return result;
+        }
+
+        public CoverageVerificationResponse CoverageVerification(CoverageVerificationRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Provider> GetProviders()
+        {
+            List<Provider> lst = new List<Provider>();
+            
+            using (SqlConnection conn = new SqlConnection(Cs.GetConnection()))
+            {
+                conn.Open();
+                using (SqlCommand comm = new SqlCommand(
+                    @"select * from tblprovider", conn))
+                {
+                   
+                    comm.CommandTimeout = 0;
+                
+                    var res = comm.ExecuteReader();
+                    while (res.Read())
+                    {
+                        Provider result = new Provider();
+                        var t = typeof(Provider);
+                        var pr = t.GetProperties();
+                        int i = 0;
+                        foreach (var item in pr)
+                        {
+
+                            item.SetValue(result, res[i].ToString());
+                            i++;
+                        }
+                        lst.Add(result);
+                    }
+                 
+                    conn.Close();
+                }
+
+            }
+            return lst;
+        }
+
+        public List<ServiceType> GetServiceTypes()
+        {
+            List<ServiceType> lst = new List<ServiceType>();
+
+            using (SqlConnection conn = new SqlConnection(Cs.GetConnection()))
+            {
+                conn.Open();
+                using (SqlCommand comm = new SqlCommand(
+                    @"SELECT * FROM  FMBPublic.[dbo].[FMBServiceType] WHERE [TypeCode] IS NOT NULL", conn))
+                {
+
+                    comm.CommandTimeout = 0;
+
+                    var res = comm.ExecuteReader();
+                    while (res.Read())
+                    {
+                        ServiceType result = new ServiceType();
+                        var t = typeof(ServiceType);
+                        var pr = t.GetProperties();
+                        int i = 0;
+                        foreach (var item in pr)
+                        {
+
+                            item.SetValue(result, res[i].ToString());
+                            i++;
+                        }
+                        lst.Add(result);
+                    }
+
+                    conn.Close();
+                }
+
+            }
+            return lst;
+        }
+
+        public List<PlaceOfService> GetPlaceOfServices()
+        {
+            List<PlaceOfService> lst = new List<PlaceOfService>();
+
+            using (SqlConnection conn = new SqlConnection(Cs.GetConnection()))
+            {
+                conn.Open();
+                using (SqlCommand comm = new SqlCommand(
+                    @"SELECT * FROM  FMBPublic.[dbo].FMBPlaceofService WHERE PlaceOfServiceCode IS NOT NULL", conn))
+                {
+
+                    comm.CommandTimeout = 0;
+
+                    var res = comm.ExecuteReader();
+                    while (res.Read())
+                    {
+                        PlaceOfService result = new PlaceOfService();
+                        var t = typeof(PlaceOfService);
+                        var pr = t.GetProperties();
+                        int i = 0;
+                        foreach (var item in pr)
+                        {
+
+                            item.SetValue(result, res[i].ToString());
+                            i++;
+                        }
+                        lst.Add(result);
+                    }
+
+                    conn.Close();
+                }
+
+            }
+            return lst;
+        }
+
+        public NPIModel GetProviderNPI()
+        {
+            NPIModel result = new NPIModel();
+            using (SqlConnection conn = new SqlConnection(Cs.GetConnection()))
+            {
+                conn.Open();
+                using (SqlCommand comm = new SqlCommand(
+                    @"SELECT       DISTINCT  zy_pr_Provider.NPI, tblProvider.LastName, tblProvider.FirstName, tblProvider.MiddleName,  tblProvider.Status 
+                        FROM            tblProvider INNER JOIN
+                        zy_pr_Provider ON tblProvider.ProviderCode = zy_pr_Provider.ProviderCode", conn))
+                {
+
+                    comm.CommandTimeout = 0;
+                    var res = comm.ExecuteReader();
+                    while (res.Read())
+                    {
+                        var t = typeof(NPIModel);
+                        var pr = t.GetProperties();
+                        int i = 0;
+                        foreach (var item in pr)
+                        {
+
+                            item.SetValue(result, res[i].ToString());
+                            i++;
+                        }
+                    }
+                    conn.Close();
+                }
+
+            }
+            return result;
+        }
+
+        public List<Payer> GetPayers()
+        {
+            List<Payer> lst = new List<Payer>();
+
+            using (SqlConnection conn = new SqlConnection(Cs.GetConnection()))
+            {
+                conn.Open();
+                using (SqlCommand comm = new SqlCommand(
+                    @"SELECT * FROM fmbpublic.dbo.fmb270payer", conn))
+                {
+
+                    comm.CommandTimeout = 0;
+
+                    var res = comm.ExecuteReader();
+                    while (res.Read())
+                    {
+                        Payer result = new Payer();
+                        var t = typeof(Payer);
+                        var pr = t.GetProperties();
+                        int i = 0;
+                        foreach (var item in pr)
+                        {
+
+                            item.SetValue(result, res[i].ToString());
+                            i++;
+                        }
+                        lst.Add(result);
+                    }
+
+                    conn.Close();
+                }
+
+            }
+            return lst;
         }
     }
 }

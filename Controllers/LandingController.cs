@@ -60,17 +60,28 @@ namespace FMBPublic.Controllers
 
             return View();
         }
+
+        public IActionResult Test()
+        {
+            return View();
+        }
         [Authorize(AuthenticationSchemes = SchemesNamesConst.UserAuthenticationDefaultScheme)]
         [HttpGet]
         public IActionResult PatientDetail(int Id)
         {
             byte[] database = null;
+            PatientViewModel p = null;
             if (HttpContext.Session.TryGetValue("database", out database))
             {
                 _fmbService.Cs = Connection.GetCs();
                 _fmbService.Cs.DataBase = UTF8Encoding.UTF8.GetString(database);
-                var result = _fmbService.GetPatientDetails(Id);
-                return Json(result);
+                var result = _fmbService.GetAccountNumberByClaimNumber(Id);
+                if(result.HasValue)
+                {
+                    p = _fmbService.GetPatientDetailByAccountNo(result.Value);
+                }
+
+                return Json(p);
             }
             return View();
         }

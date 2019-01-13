@@ -1,133 +1,120 @@
-﻿
-@*
+﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
 }
+
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <div id="app">
 
-    <div class="x_panel">
-        <div class="x_title">
-            <h2>Claims Dashboard <small></small></h2>
-            <ul class="nav navbar-right panel_toolbox">
-                <li>
-                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>
-                            <a href="#">Settings 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Settings 2</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a class="close-link"><i class="fa fa-close"></i></a>
-                </li>
-            </ul>
-            <div class="clearfix"></div>
+
+    <div class="container-fluid">
+        <!-- Breadcrumb -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    <h4 class="page-title float-left">Dashboard</h4>
+
+                    <ol class="breadcrumb float-right">
+                        <li class="breadcrumb-item"><a href="#">Free Medical Billing</a></li>
+                        <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                        <li class="breadcrumb-item active">Claims Dashboard</li>
+                    </ol>
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
         </div>
-        <div class="x_content">
-            <p class="text-muted font-13 m-b-30">
-            </p>
-            <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="dataTables_length" id="datatable_length">
-                            <label>
-                                Show <select name="datatable_length"
-                                             v-on:change="loadData(1)"
-                                             id="pageSize"
-                                             aria-controls="datatable"
-                                             class="form-control input-sm">
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                    <option value="200">200</option>
-                                </select> entries
-                            </label>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card-box">
+                    <h4 class="m-t-0 header-title">Claims Dashboard</h4>
+                    <p class="text-muted m-b-30 font-13">
+                    </p>
+                    <div class="form-inline m-b-20">
+                        <div class="row">
+                            <div class="col-md-6 text-xs-center">
+                    
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group" id="datatable_length">
+                                            <label class="control-label">
+                                                Show top entries &nbsp;
+                                            </label>
+                                                <select name="datatable_length"
+                                                        v-on:change="loadData(1)"
+                                                        id="pageSize"
+                                                        aria-controls="datatable"
+                                                        class="form-control input-sm">
+                                                    <option value="50">50</option>
+                                                    <option value="100">100</option>
+                                                    <option value="200">200</option>
+                                                </select>
+                                           
+
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-12 text-center text-right">
+                                        <table>
+                                            <tr>
+                                                <td><input type="text" name="search_criteria" id="search_criteria" placeholder="Search Claims" style="width:500px" class="form-control col-md-10" autocomplete="on"></td>
+                                                <td>
+                                                    <button type="button" v-on:click="loadData(1)" style="width:200px;" class="btn btn-primary">Search</button>
+                                                    <!--TODO add vue js block ui on load-->
+                                                </td>
+                                            </tr>
+                                        </table>
+                                   
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <ul class="pagination" style="margin-left:10px;">
+                                        <li class="page-item" v-for="p in pages">
+                                            <a class="page-link" v-if="p!=pi" :data-dt-idx="p" v-on:click="loadData(p)" href="#">{{p}}</a>
+                                            <a class="page-link" v-else :data-dt-idx="p" v-on:click="loadData(p)" href="#"><b>{{p}}</b></a>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
                         </div>
-                    </div><div class="col-sm-6"><div id="datatable_filter" class="dataTables_filter"><label><input type="search" placeholder="Search" name="search_criteria" id="search_criteria" class="form-control input-sm" placeholder="" aria-controls="datatable"><input type="button" value="Search" style="font-size:8pt;padding:7px;margin:0px" class="btn btn-info btn-lg" v-on:click="loadData(1)" /></label></div></div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-5"></div><div class="col-sm-7">
-                        <div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
-                            <ul class="pagination">
-
-                                <li v-for="p in pages" class="paginate_button ">
-                                    <a href="#" v-if="p!=pi" aria-controls="datatable" :data-dt-idx="p" v-on:click="loadData(p)" tabindex="0">{{p}}</a>
-                                    <a href="#" v-else aria-controls="datatable" :data-dt-idx="p" v-on:click="loadData(p)" tabindex="0"><b>{{p}}</b></a>
-
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+                        <table id="demo-foo-filtering" class="table table-striped table-bordered toggle-circle m-b-0" data-page-size="7">
                             <thead>
-                                <tr role="row">
-                                    <th  style="display:none" class="sorting_asc" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">
-                                        #
-                                    </th>
-                                    <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">
-                                        Claim
-                                    </th>
-                                    <th class="sorting" style="width:350px" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">
-                                        Patient
-                                    </th>
-                                    <th class="sorting" tabindex="0" width="350px"  aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">
-                                        Provider
-                                    </th>
-                                    <th tabindex="0" width="300px"  aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">
-                                        Carrier
-                                    </th>
-                                    <th tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">
-                                        Date
-                                    </th>
-                                    <th tabindex="0" style="width:150px;" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">
-                                        Status
-                                    </th>
-                                    <th tabindex="0" class="ctd" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">
-                                        Billed
-                                    </th>
-                                    <th tabindex="0" class="ctd" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">
-                                        Ins
-                                    </th>
-                                    <th tabindex="0" class="ctd" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">
-                                        Adj
-                                    </th>
-                                    <th tabindex="0" style="width:75px" class="ctd" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">
-                                        Pat Pay
-                                    </th>
-                                    <th tabindex="0" class="ctd" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">
-                                        Balance
-                                    </th>
-                                    <th  class="ctd">
-                                        Action
-                                    </th>
+                                <tr>
+                                    <!--TODO Sorting-->
+                                    <th data-toggle="true">Claim number</th>
+                                    <th width="15%">Patient</th>
+                                    <th width="15%" data-hide="phone">Carrier</th>
+                                    <th data-hide="phone, tablet">Date submitted</th>
+                                    <th data-hide="phone, tablet">Status</th>
+                                    <th data-hide="phone">Billed</th>
+                                    <th data-hide="phone, tablet">Insurance</th>
+                                    <th data-hide="phone, tablet">Adjustments</th>
+                                    <th data-hide="phone">Patient</th>
+                                    <th data-hide="phone, tablet">Balance</th>
+                                    <th>Action</th>
                                 </tr>
-
                             </thead>
+
                             <tbody>
                                 <tr v-for="item in rows" role="row" class="odd">
-                                    <td style="display:none">
-                                        {{item.rn}}
-                                    </td>
+                              
                                     <td>
                                         {{item.claimnumber}}
                                     </td>
                                     <td>
-                                        {{item.patientfullname}}
+                                        <a :href="GetHref(item.claimnumber)">   {{item.patientfullname}}</a>
                                     </td>
-                                    <td>
-                                        {{item.providerfullname}}
-                                    </td>
+                          
                                     <td>
                                         {{item.carriername}}
                                     </td>
@@ -137,47 +124,57 @@
                                     <td style="width:150px;">
                                         {{item.claimStatus}}
                                     </td>
-                                    <td  class="ctd">
+                                    <td class="ctd" style="    text-align: right !important;">
                                         {{item.billed}}
                                     </td>
-                                    <td class="ctd">
+                                    <td class="ctd" style="    text-align: right !important;">
                                         {{item.insurance}}
                                     </td>
-                                    <td class="ctd">
+                                    <td class="ctd" style="    text-align: right !important;">
                                         {{item.adjustments}}
                                     </td>
-                                    <td class="ctd">
+                                    <td class="ctd" style="    text-align: right !important;">
                                         {{item.patientPay}}
                                     </td>
-                                    <td class="ctd">
+                                    <td class="ctd" style="    text-align: right !important;">
                                         {{item.balance}}
                                     </td>
-                                    <td class="ctd">
-                                        <a href="#" v-on:click="edit(item)"><i class="fa fa-edit"></i></a>
+                                    <td style="    text-align: right !important;">
+                                        <select class="form-control">
+                                            <option>Choose action</option>
+                                            <option>Print</option>
+                                            <option>Refill</option>
+                                            <option>Statement</option>
+                                        </select>
                                     </td>
                                 </tr>
 
+
                             </tbody>
+                            <tfoot>
+                                <tr class="active">
+                                    <td colspan="11">
+                                        <div class="row">
+                                            <ul class="pagination" style="margin-left:10px;">
+                                                <li class="page-item" v-for="p in pages">
+                                                    <a class="page-link" v-if="p!=pi" :data-dt-idx="p" v-on:click="loadData(p)" href="#">{{p}}</a>
+                                                    <a class="page-link" v-else :data-dt-idx="p" v-on:click="loadData(p)" href="#"><b>{{p}}</b></a>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
-                </div><div class="row">
-                    <div class="col-sm-5"></div><div class="col-sm-7">
-                        <div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
-                            <ul class="pagination">
-
-                                <li v-for="p in pages" class="paginate_button ">
-                                    <a href="#" v-if="p!=pi" aria-controls="datatable" :data-dt-idx="p" v-on:click="loadData(p)" tabindex="0">{{p}}</a>
-                                    <a href="#" v-else aria-controls="datatable" :data-dt-idx="p" v-on:click="loadData(p)" tabindex="0"><b>{{p}}</b></a>
-
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
                 </div>
-            </div>
         </div>
+
+
     </div>
+
+
 </div>
 <script src="~/js/jquery.min.js"></script>
 
@@ -189,16 +186,19 @@
             rows: [],
             pi: 0,
             pages: [],
-            
+
         },
         mounted() {
             this.loadData();
         },
         methods: {
-            edit(item) {
-                window.location = 'Patient/' + item.patientId;
+            GetHref(href) {
+                return "Patient/" + href;
             },
-            loadData(pageIndex=1) {
+            edit(item) {
+                window.location = 'Patient/' + item.claimnumber;
+            },
+            loadData(pageIndex = 1) {
                 let that = this;
                 var ps = $("#pageSize").val();
                 var search = $("#search_criteria").val();
@@ -222,7 +222,7 @@
                         });
                         that.pages = new Array();
                         for (var i = 0; i <= vic / ps; i++) {
-                            that.pages.push(i+1);
+                            that.pages.push(i + 1);
                         }
                     },
                     failure: function (errMsg) {
@@ -234,11 +234,11 @@
     })
 </script>
 <style>
-    body
-    {
-        font-size:8pt;
+    body {
+        font-size: 8pt;
     }
+
     .ctd {
-        text-align: right;
+        text-align: right !important;
     }
 </style>
